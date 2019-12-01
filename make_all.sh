@@ -21,18 +21,8 @@ function make_model(){
 }
 
 
-
 clear
 
-build_dir_path="`pwd`/build_dir"
-[ ! -d "${build_dir_path}" ] && mkdir -p "${build_dir_path}"
-rm -rf ${build_dir_path}/*
-
-mount_record=`mount | grep "${build_dir_path}"`
-[ ! -n "${mount_record}" ] && {
-	echo "123456" | sudo -S mount -t tmpfs -o size=9G myramdisk ${build_dir_path} 
-	echo ""
-}
 
 models=(	
 	"ar71xx.74kc.usb"
@@ -47,11 +37,3 @@ for i in `seq 0 $(expr $n - 1)`; do
 done
 
 ./cksum.sh
-
-rm -rf ${build_dir_path}/*
-mount_record=`mount | grep "${build_dir_path}"`
-[ -n "${mount_record}" ] && {
-	echo "123456" | sudo -S umount ${build_dir_path} 
-	echo ""
-}
-

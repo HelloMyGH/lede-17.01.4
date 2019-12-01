@@ -70,4 +70,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: lede-17.01.4
-        path: openwrt/out
+        path: lede-17.01.4/out

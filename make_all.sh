@@ -13,7 +13,8 @@ function make_model(){
 	{
 		cp -f ".config.$1" ".config" &&
 		make dirclean  >/dev/null 2>&1 &&
-		make -j4 &&
+		make download -j16 &&
+		make -j16 &&
 		cp -u -f bin/targets/*/*/lede-*-squashfs-sysupgrade.bin out/ &&
 		make dirclean  >/dev/null 2>&1 &&
 		rm -rf bin/* build_dir/* tmp/ staging_dir/* .config

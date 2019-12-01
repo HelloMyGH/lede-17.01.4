@@ -73,4 +73,8 @@ e:value("255.255.255.0")
 e:value("255.255.0.0")
 e:value("255.0.0.0")
 
+function m.on_after_commit(self)
+    luci.http.redirect(luci.dispatcher.build_url())
+end
+
 return m

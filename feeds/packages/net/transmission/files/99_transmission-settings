@@ -1,0 +1,19 @@
+#!/bin/sh
+
+mem_size=`dmesg | awk -F 'Memory: |K/|K available' '/Memory:.*available/{print $3/1024}'`
+[ -z "$mem_size" ] && exit 0
+
+[ $mem_size -ge 128 ] &&  {
+	transmission_conf_file="/etc/sysctl.d/20-transmission.conf"
+	[ -f "$transmission_conf_file" ] && {
+		sed -i 's/^net.core.rmem_max = 4194304$/net.core.rmem_max = 8388608/g' "$transmission_conf_file"
+		sed -i 's/^net.core.wmem_max = 1048576$/net.core.wmem_max = 8388608/g' "$transmission_conf_file"
+	}
+	cache_size_mb='8'
+	[ $mem_size -ge 256 ] && cache_size_mb='16'
+	[ $mem_size -ge 512 ] && cache_size_mb='32'
+	uci -q set transmission.@transmission[0].cache_size_mb="$cache_size_mb"
+	uci commit transmission
+}
+
+exit 0

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+mem_size=`dmesg | awk -F 'Memory: |K/|K available' '/Memory:.*available/{print $3/1024}'`
+[ -z "$mem_size" ] && exit 0
+disk_cache='2M'
+[ $mem_size -ge 128 ] && disk_cache='8M'
+[ $mem_size -ge 256 ] && disk_cache='16M'
+[ $mem_size -ge 512 ] && disk_cache='32M'
+uci -q set aria2.main.disk_cache="$disk_cache"
+uci commit aria2
+
+exit 0

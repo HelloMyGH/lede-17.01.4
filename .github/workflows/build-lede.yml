@@ -54,20 +54,12 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-    - name: Clone source code
-      env: 
-        REPO_URL: https://github.com/higarfield/lede-17.01.4
-        REPO_BRANCH: master
-      run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede-17.01.4
-
-
     - name: Build
       run: |
-        cd lede-17.01.4
         ./make_all.sh
 
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
         name: lede-17.01.4
-        path: lede-17.01.4/out
+        path: out

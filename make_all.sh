@@ -14,7 +14,7 @@ function make_model(){
 		cp -f ".config.$1" ".config" &&
 		make dirclean  >/dev/null 2>&1 &&
 		make download -j16 &&
-		make -j1 V=s &&
+		make -j$(nproc) &&
 		cp -u -f bin/targets/*/*/lede-*-squashfs-sysupgrade.bin out/ &&
 		make dirclean  >/dev/null 2>&1 &&
 		rm -rf bin/* build_dir/* tmp/ staging_dir/* .config
@@ -26,7 +26,11 @@ clear
 
 
 models=(
+	"ar71xx.74kc.usb"
+	"7621"
 	"841.24kc"
+	"841.941.74kc"
+	"941v2"
 	)
 n=${#models[@]}
 for i in `seq 0 $(expr $n - 1)`; do

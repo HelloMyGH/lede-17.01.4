@@ -15,7 +15,6 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/luci/luci.mk
 
 define Package/default-settings
   SECTION:=luci

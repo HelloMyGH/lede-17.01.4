@@ -12,6 +12,7 @@ function make_model(){
 	[ ! -d "out" ] && mkdir "out"
 	{
 		cp -f ".config.$1" ".config" &&
+		make defconfig
 		make dirclean  >/dev/null 2>&1 &&
 		make download -j16 &&
 		make -j8 && 
